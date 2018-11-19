@@ -17,7 +17,7 @@ and open the template in the editor.
         <div class="alert alert-info" role="alert">
             Only allowed extensions are .wsdl (for inline schema) | .zip (for external schema).
         </div>
-        <form method="POST" id="uploadForm" name="uploadForm" action="/upload" enctype="multipart/form-data" >
+        <form method="POST" id="uploadForm" name="uploadForm" th:action="@{/upload}" enctype="multipart/form-data" >
             <div class="custom-file">
                 <input type="file" class="custom-file-input" id="wsdlFile" name="wsdlFile" >
                 <label class="custom-file-label" for="wsdlFile">Choose file</label>
@@ -26,7 +26,7 @@ and open the template in the editor.
             <br>
             <br>
             <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="overwrite" name="overwrite" />
+                <input class="form-check-input" type="checkbox" id="overwrite" name="overwrite" />
                 <label class="form-check-label" for="overwrite">
                     Overwrite if already exists?
                 </label>
@@ -35,7 +35,7 @@ and open the template in the editor.
             <input type="hidden" name="extension"  />
             <input type="hidden" name="size"  />
             <input type="hidden" name="mime"  />
-            
+
             <br>
             <br>
             <br>
@@ -46,14 +46,12 @@ and open the template in the editor.
         <br>
 
         <div class="alert alert-danger d-none" id="errordiv">err</div>
-        <div class="alert alert-danger" th:if="${error != null}" th:text="${error}"></div>
-        <div class="alert alert-success" th:if="${success != null}" th:text="${success}"></div>
+        <th:block th:replace="common::alert"/>
+        
     </div>
     <footer>
-
         <th:block th:replace="common :: scripts" /> 
         <script th:src="@{/js/upload.js}"></script>
-
     </footer>
 
 </body>

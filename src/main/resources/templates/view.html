@@ -49,15 +49,18 @@ and open the template in the editor.
                             <td th:if="${currentAction.equals('listMessages')}" th:text="${item.getName()}"></td>
                             <td th:if="${currentAction.equals('listMessages')}" th:text="${item.getType()}"></td>
                             <td th:if="${!currentAction.equals('listMessages')}" th:text="${item}"></td>
-                            <td><a class="btn btn-warning" th:href="@{${currentPath}+'/'+${item}}">View</a></td>
+                            <td th:if="${!currentAction.equals('listMessages')}"><a class="btn btn-warning" th:href="@{${currentPath}+'/'+${item}}">View</a></td>
+                            <td th:if="${currentAction.equals('listMessages')}"><a class="btn btn-warning" th:href="@{${currentPath}+'/'+${item.getType()}+'/'+${item.getName()}}">View</a></td>
                         </tr>
                     </tbody>
                 </table>
             </section>
+            <br>
+            <br>
 
+            <th:block th:replace="common::alert"/>
         </div>
         <footer>
-
             <th:block th:replace="common :: scripts" /> 
         </footer>
     </body>

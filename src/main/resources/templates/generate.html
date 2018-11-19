@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+    <th:block th:insert="common :: head"/>
+    <title>Generate ESQL</title>
+</head>
+<body>
+    <header th:replace="common :: header"></header>
+    <div class="container"> 
+        <br><br>
+        <section>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current=""><a th:href="@{/}">Available WSDLs</a></li>
+                    <li th:each="crumb, iterStat : ${crumbs}"
+                        class="breadcrumb-item" 
+                        th:appendclasses="${iterStat.last ? 'current' : ''} "
+                        th:aria-current="${crumb}" > 
+                        <a th:if="${iterStat.last}" th:text="${crumb}"></a>
+                        <a th:if="${!iterStat.last}" th:text="${crumb}" th:href="@{${T(ne.utils.MiscUtils).getBeforeNthMatch(currentPath, iterStat.index+2, '/')}}"></a>
+                    </li>
+                </ol>
+            </nav>
+            <br>
+            <h1>
+                <center th:text="${messageType + '#' + messageName}"></center>
+            </h1>
+
+
+
+            <div class="jumbotron">
+                <form>
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0">Generate For:</legend>
+                            <div class="col-sm-10">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="esqlSource" id="output" value="1" checked>
+                                    <label class="form-check-label" for="output">
+                                        OutputRoot
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="esqlSource" id="input" value="2">
+                                    <label class="form-check-label" for="input">
+                                        InputRoot
+                                    </label>
+                                </div>                               
+                            </div>
+                        </div>
+                    </fieldset>                    
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0">Declare inputs as:</legend>
+                            <div class="col-sm-10">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="inputType" id="references" value="1" checked>
+                                    <label class="form-check-label" for="references">
+                                        References
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="inputType" id="variables" value="2">
+                                    <label class="form-check-label" for="variables">
+                                        Variables
+                                    </label>
+                                </div>                               
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0">Verbsoity</legend>
+                            <div class="col-sm-10">                               
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="verbosity_docs" id="verbosity_docs">                                    
+                                    <label class="custom-control-label" for="verbosity_docs">
+                                        Documentation
+                                    </label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="verbosity_structure" id="verbosity_structure">                                    
+                                    <label class="custom-control-label" for="verbosity_structure">
+                                        Structure
+                                    </label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="verbosity_help" id="verbosity_help">                                    
+                                    <label class="custom-control-label" for="verbosity_help">
+                                        Fields Help
+                                    </label>
+                                </div>   
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="verbosity_multiplicity" id="verbosity_multiplicity">                                    
+                                    <label class="custom-control-label" for="verbosity_multiplicity">
+                                        Field Multiplicity
+                                    </label>
+                                </div> 
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <hr class="my-4">
+                    <button type="submit" class="btn btn-primary btn-block">Generate</button>
+
+                </form> 
+            </div>
+            <hr class="my-4">
+            <ul>
+                <li th:each="item: ${items}" th:text="${item}"></li>
+            </ul>
+
+
+            <th:block th:replace="common::alert"/>
+    </div>
+    <footer>
+        <th:block th:replace="common :: scripts" /> 
+        <script th:src="@{/js/upload.js}"></script>
+    </footer>
+
+</body>
+</html>

@@ -12,9 +12,13 @@ and open the template in the editor.
         <header th:replace="common :: header"></header>
         <div class="container">
             <section th:if="${wsdlFiles.size() != 0}">
+                <br><br>
+                <div class="alert alert-danger" th:if="${error != null}" th:text="${error}"></div>
+                <div class="alert alert-success" th:if="${success != null}" th:text="${success}"></div>
+                <br><br>
                 <h1><center>Available WSDLs</center></h1>
                 <table class="table table-striped">
-                    
+
                     <thead>
                         <tr>
                             <th>WSDL Name</th>
@@ -25,16 +29,22 @@ and open the template in the editor.
                     <tbody>
                         <tr th:each="filename : ${wsdlFiles}">
                             <td th:text="${filename}"></td>
-                            <td><a class="btn btn-warning" th:href="@{'/View/'+${filename}}">View</a></td>
-                            <td><a class="btn btn-error" href="/delete">Delete Todo</a></td>
+                            <td><a class="btn btn-success" th:href="@{'/View/'+${filename}}">View</a></td>
+                            <td>
+                                <form method="POST" th:action="@{/delete}">    
+                                    <input type="hidden" name="wsdlName" th:value="${filename}" />
+                                    <button type="error" class="btn btn-danger">Delete WSDL</button>
+                                </form>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
-            </section>           
+            </section>    
+
         </div>
         <footer>
             <th:block th:replace="common :: scripts" /> 
         </footer>
     </body>
-    
+
 </html>
