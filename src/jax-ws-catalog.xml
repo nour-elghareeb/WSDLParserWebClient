@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://localhost:8080/WSDLParser/WSDLParser?wsdl" uri="wsdl/localhost_8080/WSDLParser/WSDLParser.wsdl"/>
+    <system systemId="http://localhost:8080/WSDLParser/WSDLParser?xsd=1" uri="wsdl/localhost_8080/WSDLParser/WSDLParser.xsd_1.xsd"/>
+    <system systemId="http://localhost:8005/wsdlparser/WSDLParser?wsdl" uri="wsdl/localhost_8005/wsdlparser/WSDLParser.wsdl"/>
+    <system systemId="http://localhost:8005/wsdlparser/WSDLParser?xsd=1" uri="wsdl/localhost_8005/wsdlparser/WSDLParser.xsd_1.xsd"/>
+    <system systemId="file:/home/nour/NetBeansProjects/WSDLParserService/src/main/webapp/META-INF/wsdl/WSDLParser.wsdl" uri="wsdl/WSDLParser.wsdl"/>
+    <system systemId="file:/home/nour/NetBeansProjects/WSDLParserService/src/main/webapp/META-INF/wsdl/WSDLParser_InlineSchema1.xsd" uri="wsdl/WSDLParser_InlineSchema1.xsd"/>
+</catalog>

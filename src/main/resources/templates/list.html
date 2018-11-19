@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head th:insert="common :: head">
+        <title>Welcome</title>               
+    </head>
+    <body>
+        <header th:replace="common :: header"></header>
+        <div class="container">
+            <section th:if="${wsdlFiles.size() != 0}">
+                <h1><center>Available WSDLs</center></h1>
+                <table class="table table-striped">
+                    
+                    <thead>
+                        <tr>
+                            <th>WSDL Name</th>
+                            <th>View</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="filename : ${wsdlFiles}">
+                            <td th:text="${filename}"></td>
+                            <td><a class="btn btn-warning" th:href="@{'/View/'+${filename}}">View</a></td>
+                            <td><a class="btn btn-error" href="/delete">Delete Todo</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>           
+        </div>
+        <footer>
+            <th:block th:replace="common :: scripts" /> 
+        </footer>
+    </body>
+    
+</html>

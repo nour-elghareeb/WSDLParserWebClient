@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head th:insert="common :: head">
+        <title th:text="WSDL ${wsdlName}"></title>
+    </head>
+    <body>
+        <header th:replace="common :: header"></header>
+        <div class="container">
+            <br>
+            <section>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current=""><a href="/">Available WSDLs</a></li>
+                        <li th:each="crumb, iterStat : ${crumbs}"
+                            class="breadcrumb-item" 
+                            th:appendclasses="${iterStat.last ? 'current' : ''} "
+                            th:aria-current="${crumb}" > 
+                            <a th:if="${iterStat.last}" th:text="${crumb}"></a>
+                            <a th:if="${!iterStat.last}" th:text="${crumb}" th:href="@{${T(ne.utils.MiscUtils).getBeforeNthMatch(currentPath, iterStat.index+2, '/')}}"></a>
+                        </li>
+                    </ol>
+                </nav>
+                <br>
+                <h1>
+                    <center th:if="${currentAction.equals('listServices')}">Available Services</center>
+                    <center th:if="${currentAction.equals('listPorts')}">Available Ports</center>
+                    <center th:if="${currentAction.equals('listOperations')}">Available Operations</center>
+                    <center th:if="${currentAction.equals('listMessages')}">Available Messages</center>
+                </h1>
+                <br>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th th:if="${currentAction.equals('listServices')}">Service Name</th>
+                            <th th:if="${currentAction.equals('listPorts')}">Port Name</th>
+                            <th th:if="${currentAction.equals('listOperations')}">Operation Name</th>
+                            <th th:if="${currentAction.equals('listMessages')}">Message Name</th>
+                            <th th:if="${currentAction.equals('listMessages')}">Message Type</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="item : ${items}">
+                            <td th:if="${currentAction.equals('listMessages')}" th:text="${item.getName()}"></td>
+                            <td th:if="${currentAction.equals('listMessages')}" th:text="${item.getType()}"></td>
+                            <td th:if="${!currentAction.equals('listMessages')}" th:text="${item}"></td>
+                            <td><a class="btn btn-warning" th:href="@{${currentPath}+'/'+${item}}">View</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </div>
+        <footer>
+
+            <th:block th:replace="common :: scripts" /> 
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,12 @@
+{
+    "elements": {},
+    "attributes": {
+        "th:text": {
+            "context": "th"
+        },
+        "th:replace": {
+            "context": "header"
+        },
+        "th:each": {}
+    }
+}

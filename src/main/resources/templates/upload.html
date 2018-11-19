@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+    <th:block th:insert="common :: head"/>
+    <title>Upload a new WSDL</title>
+</head>
+<body>
+    <header th:replace="common :: header"></header>
+    <div class="container">          
+        <h1><center>Upload a WSDL</center></h1>      
+        <br>
+        <div class="alert alert-info" role="alert">
+            Only allowed extensions are .wsdl (for inline schema) | .zip (for external schema).
+        </div>
+        <form method="POST" id="uploadForm" name="uploadForm" action="/upload" enctype="multipart/form-data" >
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="wsdlFile" name="wsdlFile" >
+                <label class="custom-file-label" for="wsdlFile">Choose file</label>
+                <small id="fileHelp" class="form-text text-muted"></small>                    
+            </div>
+            <br>
+            <br>
+            <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="overwrite" name="overwrite" />
+                <label class="form-check-label" for="overwrite">
+                    Overwrite if already exists?
+                </label>
+            </div>
+            <input type="hidden" name="name"  />
+            <input type="hidden" name="extension"  />
+            <input type="hidden" name="size"  />
+            <input type="hidden" name="mime"  />
+            
+            <br>
+            <br>
+            <br>
+            <button type="submit" class="btn btn-light btn-lg btn-block">Upload</button>
+
+        </form>
+        <br>
+        <br>
+
+        <div class="alert alert-danger d-none" id="errordiv">err</div>
+        <div class="alert alert-danger" th:if="${error != null}" th:text="${error}"></div>
+        <div class="alert alert-success" th:if="${success != null}" th:text="${success}"></div>
+    </div>
+    <footer>
+
+        <th:block th:replace="common :: scripts" /> 
+        <script th:src="@{/js/upload.js}"></script>
+
+    </footer>
+
+</body>
+</html>

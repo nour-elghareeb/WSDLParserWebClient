@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head th:insert="common :: head">
+        <title>Welcome</title>               
+    </head>
+    <body>
+        <header th:replace="common :: header"></header>
+
+        <div class="container">
+            <br>
+            <div class="alert alert-danger" th:if="${exception == null}">Unexpected error occur.</div>
+            <div class="alert alert-danger" th:unless="${exception == null}" th:text="${errorMessage}"></div>
+
+        </div>
+        <footer>
+
+            <th:block th:replace="common :: scripts" /> 
+        </footer>
+    </body>
+
+</html>
