@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 import wsdlparse.ne.UploadWSDLRequest;
 import wsdlparse.ne.UploadWSDLResponse;
 import wsdlparse.ne.WSDLParserFault;
@@ -51,6 +52,7 @@ public class UploadController {
                 request.setFileContents(file.getBytes());
                 response = new WSDLParser_Service().getWSDLParserSOAP().uploadWSDL(request);
                 model.addAttribute("success", "WSDL "+file.getName() + " uploaded successfully");
+                return "redirect:/View/"+response.getWSDLName();
             } catch (WSDLParserFault ex) {
                 Logger.getLogger(UploadController.class.getName()).log(Level.SEVERE, null, ex);
                 model.addAttribute("error", ex.getFaultInfo().getErrorMessage());

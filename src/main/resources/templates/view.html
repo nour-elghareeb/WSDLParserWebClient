@@ -15,7 +15,7 @@ and open the template in the editor.
             <section>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active" aria-current=""><a href="/">Available WSDLs</a></li>
+                        <li class="breadcrumb-item active" aria-current=""><a th:href="@{/}">Available WSDLs</a></li>
                         <li th:each="crumb, iterStat : ${crumbs}"
                             class="breadcrumb-item" 
                             th:appendclasses="${iterStat.last ? 'current' : ''} "

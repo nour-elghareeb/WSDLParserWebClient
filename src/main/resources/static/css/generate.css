@@ -1,0 +1,36 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 20, 2018, 11:43:49 AM
+    Author     : nour
+*/
+
+li{
+    list-style: none;
+}
+li.comment span.structure{
+    color: #CCC;
+}
+
+li.comment span.multiplicity{
+    color: #771;
+}
+
+li.comment span.node_help{
+    color: #999;
+}
+li.comment span.value_help{
+    color: #777;
+}
+li.comment span.documentation{
+     color: #666;
+}
+li.comment{
+    font-size: .8em;
+}
+li.setter{
+    font-size: .9em;
+}

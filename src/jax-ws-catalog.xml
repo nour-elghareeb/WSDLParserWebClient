@@ -6,4 +6,6 @@
     <system systemId="http://localhost:8005/wsdlparser/WSDLParser?xsd=1" uri="wsdl/localhost_8005/wsdlparser/WSDLParser.xsd_1.xsd"/>
     <system systemId="file:/home/nour/NetBeansProjects/WSDLParserService/src/main/webapp/META-INF/wsdl/WSDLParser.wsdl" uri="wsdl/WSDLParser.wsdl"/>
     <system systemId="file:/home/nour/NetBeansProjects/WSDLParserService/src/main/webapp/META-INF/wsdl/WSDLParser_InlineSchema1.xsd" uri="wsdl/WSDLParser_InlineSchema1.xsd"/>
+    <system systemId="file:/home/nour/NetBeansProjects/WSDLParserService/src/wsdl/WSDLParser.wsdl" uri="wsdl/WSDLParser.wsdl"/>
+    <system systemId="file:/home/nour/NetBeansProjects/WSDLParserService/src/wsdl/WSDLParser_InlineSchema1.xsd" uri="wsdl/WSDLParser_InlineSchema1.xsd"/>
 </catalog>

@@ -30,4 +30,22 @@ public class MiscUtils {
         }
         return String.join(splitter, newList);
     }
+    public static String cleanXML(String value){
+        return value.replace("&#62;", ">").replace("&#60;","<");
+    }
+    public static String getVariableFromPath(String path){
+        return splitPrefixes(path.substring(path.lastIndexOf(".") + 1))[1];
+    }
+    public static String[] splitPrefixes(String value) {
+
+        String[] splitArray = new String[2];
+        if (value == null)
+            return splitArray;
+        else if (!value.contains(":")) {
+            splitArray[0] = null;
+            splitArray[1] = value;
+            return splitArray;
+        }
+        return value.split(":");
+    }
 }

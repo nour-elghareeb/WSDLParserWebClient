@@ -8,6 +8,7 @@ and open the template in the editor.
     <head>
     <th:block th:insert="common :: head"/>
     <title>Generate ESQL</title>
+    <link rel="stylesheet" th:href="@{/css/generate.css}">
 </head>
 <body>
     <header th:replace="common :: header"></header>
@@ -34,19 +35,20 @@ and open the template in the editor.
 
 
             <div class="jumbotron">
-                <form>
+                <form method="POST">
+                    
                     <fieldset class="form-group">
                         <div class="row">
                             <legend class="col-form-label col-sm-2 pt-0">Generate For:</legend>
                             <div class="col-sm-10">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="esqlSource" id="output" value="1" checked>
+                                    <input class="form-check-input" type="radio" name="esqlSource" id="output" value="output" th:checked="${esqlSource.contains('output')}">
                                     <label class="form-check-label" for="output">
                                         OutputRoot
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="esqlSource" id="input" value="2">
+                                    <input class="form-check-input" type="radio" name="esqlSource" id="input" value="input" th:checked="${esqlSource.contains('input')}">
                                     <label class="form-check-label" for="input">
                                         InputRoot
                                     </label>
@@ -59,13 +61,13 @@ and open the template in the editor.
                             <legend class="col-form-label col-sm-2 pt-0">Declare inputs as:</legend>
                             <div class="col-sm-10">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="inputType" id="references" value="1" checked>
+                                    <input class="form-check-input" type="radio" name="inputType" id="references" value="references" th:checked="${inputType}">
                                     <label class="form-check-label" for="references">
                                         References
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="inputType" id="variables" value="2">
+                                    <input class="form-check-input" type="radio" name="inputType" id="variables" value="variables" th:checked="${!inputType}">
                                     <label class="form-check-label" for="variables">
                                         Variables
                                     </label>
@@ -78,25 +80,31 @@ and open the template in the editor.
                             <legend class="col-form-label col-sm-2 pt-0">Verbsoity</legend>
                             <div class="col-sm-10">                               
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="verbosity_docs" id="verbosity_docs">                                    
+                                    <input type="checkbox" class="custom-control-input" name="verbosity_docs" id="verbosity_docs" th:checked="${verbosity_docs}">
                                     <label class="custom-control-label" for="verbosity_docs">
                                         Documentation
                                     </label>
                                 </div>
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="verbosity_structure" id="verbosity_structure">                                    
+                                    <input type="checkbox" class="custom-control-input" name="verbosity_structure" id="verbosity_structure" th:checked="${verbosity_structure}"/>  
                                     <label class="custom-control-label" for="verbosity_structure">
-                                        Structure
+                                        ESQL Structure
                                     </label>
                                 </div>
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="verbosity_help" id="verbosity_help">                                    
-                                    <label class="custom-control-label" for="verbosity_help">
-                                        Fields Help
+                                    <input type="checkbox" class="custom-control-input" name="verbosity_nodeHelp" id="verbosity_nodeHelp" th:checked="${verbosity_nodeHelp}">                                    
+                                    <label class="custom-control-label" for="verbosity_nodeHelp">
+                                        XSD Node Help
                                     </label>
                                 </div>   
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="verbosity_multiplicity" id="verbosity_multiplicity">                                    
+                                    <input type="checkbox" class="custom-control-input" name="verbosity_valueHelp" id="verbosity_valueHelp" th:checked="${verbosity_valueHelp}">                                    
+                                    <label class="custom-control-label" for="verbosity_valueHelp">
+                                        Field Value Help
+                                    </label>
+                                </div>  
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="verbosity_multiplicity" id="verbosity_multiplicity" th:checked="${verbosity_multiplicity}">                                    
                                     <label class="custom-control-label" for="verbosity_multiplicity">
                                         Field Multiplicity
                                     </label>
@@ -112,9 +120,36 @@ and open the template in the editor.
             </div>
             <hr class="my-4">
             <ul>
-                <li th:each="item: ${items}" th:text="${item}"></li>
+                <li class="setter" th:each="nsline : ${ns}">
+                    DECLARE <span class="text-primary" th:text="${nsline.getPrefix()}"/> 
+                    <span class="text-muted">NAMESPACE</span>
+                    <span class="text-primary" th:text="@{'\''+${nsline.getNamespace()}+'\''}"/>;
+                </li>
+                <br><br>
+                <th:block th:each="line : ${lines}" >
+                    <li th:if="${line.getESQLComment() != null}" class="comment">                        
+                        <span th:class="${line.getESQLComment().getType().toLowerCase()}" th:text="@{' -- ' +${T(ne.utils.MiscUtils).cleanXML(line.getESQLComment().getComment())}}"/>
+                    </li>
+                    
+                    <li class="setter" th:if="${line.getESQLSetter() != null}">
+                        <th:block th:if="${line.getESQLSetter().getESQLSource().toLowerCase().equals('input')}">
+                            <span>SET </span>
+                            <span class="text-primary" th:text="@{${T(ne.utils.MiscUtils).getVariableFromPath(line.getESQLSetter().getXPath())} }"></span> 
+                            <span th:if="${inputType}" class="text-muted">REFERENCE TO </span>
+                            <span th:if="${!inputType}" class="text-muted" th:text="${line.getESQLSetter().getFieldType() + ' '}"></span>
+                            <span class="text-danger" th:text="@{InputRoot.XMLNSC.}"></span><span class="text-success" th:text="${line.getESQLSetter().getXPath()} + '; '"></span> 
+                            <span class="value_help" th:text="${'-- ' + line.getESQLSetter().getValueHelp()}"/>
+                        </th:block>
+                    <th:block th:if="${line.getESQLSetter().getESQLSource().toLowerCase().equals('output')}">
+                        <span>SET </span>
+                        <span class="text-danger" th:text="@{OutputRoot.XMLNSC.}"></span><span class="text-success" th:text="${line.getESQLSetter().getXPath()} + ' = '"></span> 
+                        <span class="text-warning" th:text="${line.getESQLSetter().getDefaultValue()  + '; '}" />
+                        <span class="value_help" th:text="${'-- ' + line.getESQLSetter().getValueHelp()}"/>
+                    </th:block>
+                    </li>
+                </th:block>
             </ul>
-
+            <br><br>
 
             <th:block th:replace="common::alert"/>
     </div>

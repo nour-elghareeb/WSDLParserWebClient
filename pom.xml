@@ -121,28 +121,10 @@
                             <vmArgs>
                                 <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
                             </vmArgs>
-                            <wsdlLocation>file:/home/nour/NetBeansProjects/WSDLParserService/src/main/webapp/META-INF/wsdl/WSDLParser.wsdl</wsdlLocation>
+                            <wsdlLocation>file:/home/nour/NetBeansProjects/WSDLParserService/src/wsdl/WSDLParser.wsdl</wsdlLocation>
                             <staleFile>${project.build.directory}/jaxws/stale/WSDLParser.stale</staleFile>
                         </configuration>
                         <id>wsimport-generate-WSDLParser</id>
-                        <phase>generate-sources</phase>
-                    </execution>
-                    <execution>
-                        <goals>
-                            <goal>wsimport</goal>
-                        </goals>
-                        <configuration>
-                            <wsdlFiles>
-                                <wsdlFile>WSDLParser.wsdl</wsdlFile>
-                            </wsdlFiles>
-                            <packageName></packageName>
-                            <vmArgs>
-                                <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
-                            </vmArgs>
-                            <wsdlLocation>file:/home/nour/NetBeansProjects/WSDLParserService/src/main/webapp/META-INF/wsdl/WSDLParser.wsdl</wsdlLocation>
-                            <staleFile>${project.build.directory}/jaxws/stale/WSDLParser_1.stale</staleFile>
-                        </configuration>
-                        <id>wsimport-generate-WSDLParser_1</id>
                         <phase>generate-sources</phase>
                     </execution>
                 </executions>
