@@ -5,20 +5,27 @@
  */
 package ne.wsdlparse.controller;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ne.utils.MiscUtils;
+import ne.wsdlparse.model.AjaxFilterRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import wsdlparse.ne.DeleteWSDLRequest;
 import wsdlparse.ne.DeleteWSDLResponse;
+import wsdlparse.ne.FilterAvailableWSDLsRequest;
+import wsdlparse.ne.FilterAvailableWSDLsResponse;
 import wsdlparse.ne.GenerateMessageESQLRequest;
 import wsdlparse.ne.GenerateMessageESQLResponse;
 import wsdlparse.ne.ListAvailableWSDLsRequest;
@@ -283,6 +290,18 @@ public class IndexController {
         model.addAttribute("urlBefore", url);
         model.addAttribute("urlAfter", MiscUtils.getBeforeNthMatch(url, 2, "/"));
         return "test";
+    }
+    @RequestMapping(value="/filter",method= RequestMethod.POST)
+    public @ResponseBody List<String> filterWSDLs(@RequestBody AjaxFilterRequest data){
+        try {
+            FilterAvailableWSDLsRequest request = new FilterAvailableWSDLsRequest();
+            request.setWSDLName(data.getFilterValue());
+            FilterAvailableWSDLsResponse response = new WSDLParser_Service().getWSDLParserSOAP().filterAvailableWSDLs(request);
+            return response.getWSDL();
+        } catch (WSDLParserFault ex) {
+            Logger.getLogger(IndexController.class.getName()).log(Level.SEVERE, null, ex);            
+            return null;
+        }
     }
 
 }
