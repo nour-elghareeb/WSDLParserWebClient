@@ -134,10 +134,10 @@ and open the template in the editor.
                     <li class="setter" th:if="${line.getESQLSetter() != null}">
                         <th:block th:if="${line.getESQLSetter().getESQLSource().toLowerCase().equals('input')}">
                             <span>SET </span>
-                            <span class="text-primary" th:text="@{${T(ne.utils.MiscUtils).getVariableFromPath(line.getESQLSetter().getXPath())} }"></span> 
+                            <span class="text-primary" th:text="${line.getESQLSetter().getDefaultValue()}"></span> 
                             <span th:if="${inputType}" class="text-muted">REFERENCE TO </span>
                             <span th:if="${!inputType}" class="text-muted" th:text="${line.getESQLSetter().getFieldType() + ' '}"></span>
-                            <span class="text-danger" th:text="@{InputRoot.XMLNSC.}"></span><span class="text-success" th:text="${line.getESQLSetter().getXPath()} + '; '"></span> 
+                            <span class="text-danger" th:text="@{InputRoot.XMLNSC.}"></span><span class="text-success" th:text="${T(ne.utils.MiscUtils).replacePrefixesWithAsterisk(line.getESQLSetter().getXPath())} + '; '"></span> 
                             <span class="value_help" th:text="${'-- ' + line.getESQLSetter().getValueHelp()}"/>
                         </th:block>
                     <th:block th:if="${line.getESQLSetter().getESQLSource().toLowerCase().equals('output')}">

@@ -48,4 +48,23 @@ public class MiscUtils {
         }
         return value.split(":");
     }
+    public static String replacePrefixesWithAsterisk(String value) {
+        int startPoint = 0;
+
+        while (startPoint != -1) {
+
+            int end = value.indexOf(":", startPoint);
+            if (end == -1) {
+                return value;
+            }
+            int start = value.lastIndexOf(".", end);
+            String sub = value.substring(start + 1, end);
+            if (!sub.equals("*")) {
+                value = value.replace(sub, "*");
+            }
+            startPoint = end + 1;
+
+        }
+        return value;
+    }
 }
