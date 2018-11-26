@@ -12,11 +12,12 @@ and open the template in the editor.
         <header th:replace="common :: header"></header>
         <div class="container">
             <section th:if="${wsdlFiles.size() != 0}">
-                <br><br>
+                <br>
                 <div class="alert alert-danger" th:if="${error != null}" th:text="${error}"></div>
                 <div class="alert alert-success" th:if="${success != null}" th:text="${success}"></div>
-                <br><br>
+                <br>
                 <h1><center>Available WSDLs</center></h1>
+                <br>
                 <table class="table table-striped">
 
                     <thead>

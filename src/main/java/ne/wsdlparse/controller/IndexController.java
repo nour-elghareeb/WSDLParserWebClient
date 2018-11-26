@@ -6,6 +6,7 @@
 package ne.wsdlparse.controller;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ne.utils.MiscUtils;
@@ -78,7 +79,7 @@ public class IndexController {
             model.addAttribute("items", response.getService());
             model.addAttribute("currentPath", "/View/" + wsdlName);
             if (response.getService().size() == 1) {
-                return listPorts(wsdlName, response.getService().get(0), model);
+                return String.format(Locale.getDefault(), "redirect:/View/%s/%s", wsdlName, response.getService().get(0));
             }
             return "view";
         } catch (WSDLParserFault ex) {
@@ -105,7 +106,7 @@ public class IndexController {
             model.addAttribute("items", response.getPort());
             model.addAttribute("currentPath", "/View/" + wsdlName + "/" + serviceName);
             if (response.getPort().size() == 1) {
-                return listOperations(wsdlName, serviceName, response.getPort().get(0), model);
+                return String.format(Locale.getDefault(), "redirect:/View/%s/%s/%s", wsdlName, serviceName, response.getPort().get(0));
             }
             return "view";
         } catch (WSDLParserFault ex) {
@@ -136,7 +137,7 @@ public class IndexController {
             model.addAttribute("items", response.getOperation());
             model.addAttribute("currentPath", "/View/" + wsdlName + "/" + serviceName + "/" + portName);
             if (response.getOperation().size() == 1) {
-                return listMessages(wsdlName, serviceName, portName, response.getOperation().get(0), model);
+                return String.format(Locale.getDefault(), "redirect:/View/%s/%s/%s/%s", wsdlName, serviceName, portName, response.getOperation().get(0));
             }
             return "view";
         } catch (WSDLParserFault ex) {

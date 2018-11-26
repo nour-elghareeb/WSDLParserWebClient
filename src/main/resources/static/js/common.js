@@ -143,6 +143,7 @@ function searchViaAjax(input) {
         
         success: function (data) {
             applyNewVals(input, data)
+
             wsdls = data;
         },
         error: function (e) {

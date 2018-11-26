@@ -11,21 +11,21 @@ and open the template in the editor.
 li{
     list-style: none;
 }
-li.comment span.structure{
+span.structure{
     color: #CCC;
 }
 
-li.comment span.multiplicity{
+span.multiplicity{
     color: #771;
 }
 
-li.comment span.node_help{
+span.node_help{
     color: #999;
 }
-li.comment span.value_help{
+span.value_help{
     color: #777;
 }
-li.comment span.documentation{
+span.documentation{
      color: #666;
 }
 li.comment{

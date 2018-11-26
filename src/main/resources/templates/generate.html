@@ -133,7 +133,7 @@ and open the template in the editor.
                     
                     <li class="setter" th:if="${line.getESQLSetter() != null}">
                         <th:block th:if="${line.getESQLSetter().getESQLSource().toLowerCase().equals('input')}">
-                            <span>SET </span>
+                            <span>DECLARE </span>
                             <span class="text-primary" th:text="${line.getESQLSetter().getDefaultValue()}"></span> 
                             <span th:if="${inputType}" class="text-muted">REFERENCE TO </span>
                             <span th:if="${!inputType}" class="text-muted" th:text="${line.getESQLSetter().getFieldType() + ' '}"></span>

@@ -61,8 +61,6 @@
     <wsdl:message name="GenerateMessageESQLResponse">
         <wsdl:part element="tns:GenerateMessageESQLResponse" name="parameters" />
     </wsdl:message>
-    
-    
     <wsdl:message name="DeleteWSDLRequest">
         <wsdl:part element="tns:DeleteWSDLRequest" name="parameters" />
     </wsdl:message>
@@ -240,7 +238,7 @@
     </wsdl:binding>
     <wsdl:service name="WSDLParser">
         <wsdl:port binding="tns:WSDLParserSOAP" name="WSDLParserSOAP">
-            <soap:address location="http://localhost:8005/wsdlparser/WSDLParser"/>
-        </wsdl:port>
+            <soap:address location="http://localhost:8090/WSDLParserService/"/>
+        </wsdl:port>    
     </wsdl:service>
 </wsdl:definitions>
